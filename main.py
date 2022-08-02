@@ -12,7 +12,6 @@ def start_command(message):
     bot.send_message(message.chat.id,
                      'Приветствую на нашем канале Shop-place.\n' +
                      'Если есть проблемы с ботом, Напиши /help.\n' +
-                     'Для очищения чата, используйте /clear.\n' +
                      'Чтобы начать работу, Напиши /play')
 
 
@@ -25,11 +24,6 @@ def help_command(message):
         )
     )
     bot.send_message(message.chat.id, 'Грустно если не работает', reply_markup=keyboard)
-
-
-@bot.message_handler(commands=['clear'])
-def clear_command(message):
-    bot.delete_message(message.chat.id, message.message_id - 1)
 
 
 '''Виртуальные кнопки'''
@@ -74,27 +68,30 @@ def inline(c):
         bot.send_message(c.message.chat.id, 'Какая материнская плата вас интересует?', reply_markup=keyboard)
 
 
-    bot.answer_callback_query(callback_query_id=c.id, text='Ваш результат!')
     if c.data == 'A-data':
-        bot.send_message(c.message.chat.id, text='120 ГБ 2.5" SATA накопитель A-Data SU650')
+        bot.send_message(c.message.chat.id, text='120 ГБ 2.5" SATA накопитель A-Data SU650  \nЦена 1 399' + '\nhttps://www.dns-shop.ru/product/775bd788e3e51b80/120-gb-25-sata-nakopitel-a-data-su650-asu650ss-120gt-r/')
     elif c.data == 'Samsung':
-        bot.send_message(c.message.chat.id, text='500 ГБ 2.5" SATA накопитель Samsung 870 EVO')
+        bot.send_message(c.message.chat.id, text='500 ГБ 2.5" SATA накопитель Samsung 870 EVO  \nЦена 8 799' + '\nhttps://www.dns-shop.ru/product/17ee99c15ab83332/500-gb-25-sata-nakopitel-samsung-870-evo-mz-77e500bw/')
     elif c.data == 'Apacer':
-        bot.send_message(c.message.chat.id, text='120 ГБ 2.5" SATA накопитель Apacer AS340 PANTHER')
+        bot.send_message(c.message.chat.id, text='120 ГБ 2.5" SATA накопитель Apacer AS340 PANTHER  \nЦена 1 250' + '\nhttps://www.dns-shop.ru/product/66781d99f8b53330/120-gb-25-sata-nakopitel-apacer-as340-panther-ap120gas340g-1/')
     elif c.data == 'kingston':
-        bot.send_message(c.message.chat.id, text='Kingston FURY Beast Black [KF432C16BBK2/16] 16 ГБ')
+        bot.send_message(c.message.chat.id, text='Kingston FURY Beast Black [KF432C16BBK2/16] 16 ГБ  \nЦена 6 099' + '\nhttps://www.dns-shop.ru/product/e8acb46cdae8d763/operativnaa-pamat-kingston-fury-beast-black-kf432c16bbk216-16-gb/'),
+        bot.send_message(c.message.chat.id, text='Kingston FURY Beast Black [KF432C16BBK2/8] 8 ГБ \nЦена 4 299' + '\nhttps://www.dns-shop.ru/product/7930d6bfdae8d763/operativnaa-pamat-kingston-fury-beast-black-kf432c16bbk28-8-gb/')
+        bot.send_message(c.message.chat.id, text='Kingston FURY Beast Black [KF432C16BB/8] 8 ГБ \nЦена 2 899' + '\nhttps://www.dns-shop.ru/product/cacbeacfdae8d763/operativnaa-pamat-kingston-fury-beast-black-kf432c16bb8-8-gb/')
     elif c.data == 'Crucial':
-        bot.send_message(c.message.chat.id, text='Crucial [CT4G4DFS8266] 4 ГБ')
+        bot.send_message(c.message.chat.id, text='Crucial [CT4G4DFS8266] 4 ГБ \nЦена 1 599' + '\nhttps://www.dns-shop.ru/product/b849abfa155f3332/operativnaa-pamat-crucial-ct4g4dfs8266-4-gb/')
     elif c.data == 'Patriot':
-        bot.send_message(c.message.chat.id, text=' Patriot Viper Steel [PVS416G320C6K] 16 ГБ')
+        bot.send_message(c.message.chat.id, text=' Patriot Viper Steel [PVS416G320C6K] 16 ГБ \nЦена 4 999' + '\nhttps://www.dns-shop.ru/product/5762c1c346fc1b80/operativnaa-pamat-patriot-viper-steel-pvs416g320c6k-16-gb/')
     elif c.data == 'asus':
-        bot.send_message(c.message.chat.id, text='ASUS PRIME H510M-K')
+        bot.send_message(c.message.chat.id, text='ASUS PRIME H510M-K \nЦена 5 499' + '\nhttps://www.dns-shop.ru/product/2012e739a9902ff1/materinskaa-plata-asus-prime-h510m-k/ ')
     elif c.data == 'msi':
-        bot.send_message(c.message.chat.id, text='MSI MAG B550 TOMAHAWK')
+        bot.send_message(c.message.chat.id, text='MSI MAG B550 TOMAHAWK \nЦена 23 999' + '\nhttps://www.dns-shop.ru/product/b9a4575dafa61b80/materinskaa-plata-msi-mag-b550-tomahawk/')
     elif c.data == 'gygabyte':
-        bot.send_message(c.message.chat.id, text='GIGABYTE B560M DS3H V2')
+        bot.send_message(c.message.chat.id, text='GIGABYTE B560M DS3H V2 \nЦена 6 299' + '\nhttps://www.dns-shop.ru/product/d69943561a91ed20/materinskaa-plata-gigabyte-b560m-ds3h-v2/')
 
+    bot.answer_callback_query(callback_query_id=c.id, show_alert=False, text='Спасибо за ваш выбор!')
 
 """Запускаем бота После ее добавления у бота будет постоянно проверяться наличие новых сообщений"""
 
 bot.infinity_polling()
+
