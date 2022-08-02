@@ -1,9 +1,6 @@
 """библеотеки для телеграмма"""
 import telebot
 
-'''import random'''
-'''import json'''
-
 """Токен самого бота"""
 bot = telebot.TeleBot('5544754274:AAE1f6T3fJOlpPkDFM69Cz6zbKh5ML3NDLo')
 
@@ -30,6 +27,11 @@ def help_command(message):
     bot.send_message(message.chat.id, 'Грустно если не работает', reply_markup=keyboard)
 
 
+@bot.message_handler(commands=['clear'])
+def clear_command(message):
+    bot.delete_message(message.chat.id, message.message_id - 1)
+
+
 '''Виртуальные кнопки'''
 
 
@@ -44,39 +46,55 @@ def play_command(message):
     bot.send_message(message.chat.id, 'Что хотите найти?', reply_markup=keyboard)
 
 
-@bot.message_handler(commands=['clear'])
-def clear_command(message):
-    bot.delete_message(message.chat.id, message.message_id - 1)
+@bot.callback_query_handler(func=lambda call: True)
+def inline(c):
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    if c.data == 'sdd':
+        keyboard.add(
+            telebot.types.InlineKeyboardButton('A-data', callback_data='A-data'),
+            telebot.types.InlineKeyboardButton('Samsung', callback_data='Samsung'),
+            telebot.types.InlineKeyboardButton('Apacer', callback_data='Apacer')
+        )
+        bot.send_message(c.message.chat.id, 'Какое sdd вас интересует?', reply_markup=keyboard)
 
-
-
-@bot.callback_calll_handler(func=lambda call: True)
-def call1_handler(call1):
-    bot.answer_callback_query(callback_query_id=call1.id, text='Спасибо за честный ответ!')
-    if call1.data == 'sdd':
-        bot.send_message(call1.message.chat.id, 'увы, у вас нет денег!')
-    elif call1.data == 'memory':
-        bot.send_message(call1.message.chat.id, 'аа оперативки нет!')
-    elif call1.data == 'mother':
-        keyboard = telebot.types.InlineKeyboardMarkup()
+    elif c.data == 'memory':
+        keyboard.add(
+            telebot.types.InlineKeyboardButton('kingston', callback_data='kingston'),
+            telebot.types.InlineKeyboardButton('Crucial', callback_data='Crucial'),
+            telebot.types.InlineKeyboardButton('Patriot', callback_data='Patriot')
+        )
+        bot.send_message(c.message.chat.id, 'Какая оперативная память вас интересует?', reply_markup=keyboard)
+        
+    elif c.data == 'mother':
         keyboard.add(
             telebot.types.InlineKeyboardButton('Asus', callback_data='asus'),
             telebot.types.InlineKeyboardButton('MSI', callback_data='msi'),
-            telebot.types.InlineKeyboardButton('Gygabe', callback_data='gygabe')
+            telebot.types.InlineKeyboardButton('Gygabyte', callback_data='gygabyte')
         )
-        bot.send_message(message.chat.id, 'Какая мать вас интересует?', reply_markup=keyboard)
+        bot.send_message(c.message.chat.id, 'Какая материнская плата вас интересует?', reply_markup=keyboard)
 
 
-        # bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id) убирает таблицу после выбора кнопки
+    bot.answer_callback_query(callback_query_id=c.id, text='Ваш результат!')
+    if c.data == 'A-data':
+        bot.send_message(c.message.chat.id, text='120 ГБ 2.5" SATA накопитель A-Data SU650')
+    elif c.data == 'Samsung':
+        bot.send_message(c.message.chat.id, text='500 ГБ 2.5" SATA накопитель Samsung 870 EVO')
+    elif c.data == 'Apacer':
+        bot.send_message(c.message.chat.id, text='120 ГБ 2.5" SATA накопитель Apacer AS340 PANTHER')
+    elif c.data == 'kingston':
+        bot.send_message(c.message.chat.id, text='Kingston FURY Beast Black [KF432C16BBK2/16] 16 ГБ')
+    elif c.data == 'Crucial':
+        bot.send_message(c.message.chat.id, text='Crucial [CT4G4DFS8266] 4 ГБ')
+    elif c.data == 'Patriot':
+        bot.send_message(c.message.chat.id, text=' Patriot Viper Steel [PVS416G320C6K] 16 ГБ')
+    elif c.data == 'asus':
+        bot.send_message(c.message.chat.id, text='ASUS PRIME H510M-K')
+    elif c.data == 'msi':
+        bot.send_message(c.message.chat.id, text='MSI MAG B550 TOMAHAWK')
+    elif c.data == 'gygabyte':
+        bot.send_message(c.message.chat.id, text='GIGABYTE B560M DS3H V2')
 
-@bot.callback_call_handler(func=lambda call: True)
-def call_hadler(call):
-    if call.data == 'asus':
-        bot.send_message(call.message.chat.id, 'увы, матери нет!')
-    elif call.data == 'msi':
-        bot.send_message(call.message.chat.id, 'аа  нет!')
-    elif call.data == 'gygabe':
-        bot.send_message(call.message.chat.id, 'нет!')
 
 """Запускаем бота После ее добавления у бота будет постоянно проверяться наличие новых сообщений"""
-bot.polling(none_stop=True, interval=0)
+
+bot.infinity_polling()
