@@ -36,18 +36,10 @@ def help_command(message):
 @bot.message_handler(commands=['play'])
 def play_command(message):
     keyboard = telebot.types.InlineKeyboardMarkup()
-    keyboard.row(
-        telebot.types.InlineKeyboardButton(
-            'SDD', callback_data='sdd'
-        ),
-        telebot.types.InlineKeyboardButton(
-            'Memory', callback_data='memory'
-        ),
-    )
-    keyboard.row(
-        telebot.types.InlineKeyboardButton(
-            'mother', callback_data='mother'
-        )
+    keyboard.add(
+        telebot.types.InlineKeyboardButton('SDD', callback_data='sdd'),
+        telebot.types.InlineKeyboardButton('Memory', callback_data='memory'),
+        telebot.types.InlineKeyboardButton('mother', callback_data='mother')
     )
     bot.send_message(message.chat.id, 'Что хотите найти?', reply_markup=keyboard)
 
@@ -58,20 +50,33 @@ def clear_command(message):
 
 
 
-@bot.callback_query_handler(func=lambda call: True)
-def query_handler(call):
-    bot.answer_callback_query(callback_query_id=call.id, text='Спасибо за честный ответ!')
-    answer = ''
-    if call.data == 'sdd':
-        answer = 'увы, у вас нет денег!'
-    elif call.data == 'memory':
-        answer = 'аа оперативки нет!'
-    elif call.data == 'mother':
-        answer = 'мать сгорела )))))))))'
+@bot.callback_calll_handler(func=lambda call: True)
+def call1_handler(call1):
+    bot.answer_callback_query(callback_query_id=call1.id, text='Спасибо за честный ответ!')
+    if call1.data == 'sdd':
+        bot.send_message(call1.message.chat.id, 'увы, у вас нет денег!')
+    elif call1.data == 'memory':
+        bot.send_message(call1.message.chat.id, 'аа оперативки нет!')
+    elif call1.data == 'mother':
+        keyboard = telebot.types.InlineKeyboardMarkup()
+        keyboard.add(
+            telebot.types.InlineKeyboardButton('Asus', callback_data='asus'),
+            telebot.types.InlineKeyboardButton('MSI', callback_data='msi'),
+            telebot.types.InlineKeyboardButton('Gygabe', callback_data='gygabe')
+        )
+        bot.send_message(message.chat.id, 'Какая мать вас интересует?', reply_markup=keyboard)
 
-    # bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-    bot.send_message(call.message.chat.id, answer)
 
+        # bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id) убирает таблицу после выбора кнопки
+
+@bot.callback_call_handler(func=lambda call: True)
+def call_hadler(call):
+    if call.data == 'asus':
+        bot.send_message(call.message.chat.id, 'увы, матери нет!')
+    elif call.data == 'msi':
+        bot.send_message(call.message.chat.id, 'аа  нет!')
+    elif call.data == 'gygabe':
+        bot.send_message(call.message.chat.id, 'нет!')
 
 """Запускаем бота После ее добавления у бота будет постоянно проверяться наличие новых сообщений"""
 bot.polling(none_stop=True, interval=0)
