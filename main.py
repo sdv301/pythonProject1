@@ -58,7 +58,7 @@ def inline(c):
         keyboard.add(
             telebot.types.InlineKeyboardButton('SDD', callback_data='sdd1'),
             telebot.types.InlineKeyboardButton('Memory', callback_data='memory1'),
-            telebot.types.InlineKeyboardButton('Mother', callback_data='mother')
+            telebot.types.InlineKeyboardButton('Mother', callback_data='mother1')
         )
         bot.send_message(c.message.chat.id, 'Какой раздел вас интересует?', reply_markup=keyboard)
 
@@ -66,7 +66,7 @@ def inline(c):
         keyboard.add(
             telebot.types.InlineKeyboardButton('SDD', callback_data='sdd2'),
             telebot.types.InlineKeyboardButton('Memory', callback_data='memory2'),
-            telebot.types.InlineKeyboardButton('Mother', callback_data='mother')
+            telebot.types.InlineKeyboardButton('Mother', callback_data='mother2')
         )
         bot.send_message(c.message.chat.id, 'Какой раздел вас интересует?', reply_markup=keyboard)
 
@@ -76,7 +76,7 @@ def inline(c):
             telebot.types.InlineKeyboardButton('Samsung', callback_data='Samsung'),
             telebot.types.InlineKeyboardButton('Apacer', callback_data='Apacer')
         )
-        bot.send_message(c.message.chat.id, 'Какое фирма sdd вас интересует?', reply_markup=keyboard)
+        bot.send_message(c.message.chat.id, 'Какая фирма sdd вас интересует?', reply_markup=keyboard)
 
     elif c.data == 'sdd1':
         keyboard.add(
@@ -96,7 +96,7 @@ def inline(c):
 
     if c.data == 'memory':
         keyboard.add(
-            telebot.types.InlineKeyboardButton('kingston', callback_data='kingston'),
+            telebot.types.InlineKeyboardButton('Kingston', callback_data='kingston'),
             telebot.types.InlineKeyboardButton('Crucial', callback_data='Crucial'),
             telebot.types.InlineKeyboardButton('Patriot', callback_data='Patriot')
         )
@@ -126,6 +126,23 @@ def inline(c):
         )
         bot.send_message(c.message.chat.id, 'Какая фирма материнской платы  вас интересует?', reply_markup=keyboard)
 
+    if c.data == 'mother1':
+        keyboard.add(
+            telebot.types.InlineKeyboardButton('Asus', callback_data='asus1'),
+            telebot.types.InlineKeyboardButton('MSI', callback_data='msi1'),
+            telebot.types.InlineKeyboardButton('Gygabyte', callback_data='gygabyte1')
+        )
+        bot.send_message(c.message.chat.id, 'Какая фирма материнской платы  вас интересует?', reply_markup=keyboard)
+
+    if c.data == 'mother2':
+        keyboard.add(
+            telebot.types.InlineKeyboardButton('Asus', callback_data='chipasus'),
+            telebot.types.InlineKeyboardButton('MSI', callback_data='chipmsi'),
+            telebot.types.InlineKeyboardButton('Gygabyte', callback_data='chipgygabyte')
+        )
+        bot.send_message(c.message.chat.id, 'Какая фирма материнской платы  вас интересует?', reply_markup=keyboard)
+
+
     """Вся база"""
     if c.data == 'A-data':
         bot.send_message(c.message.chat.id,
@@ -136,7 +153,7 @@ def inline(c):
     elif c.data == 'Apacer':
         bot.send_message(c.message.chat.id,
                          text='120 ГБ 2.5" SATA накопитель Apacer AS340 PANTHER  \nЦена 1 250' + '\nhttps://www.dns-shop.ru/product/66781d99f8b53330/120-gb-25-sata-nakopitel-apacer-as340-panther-ap120gas340g-1/')
-    elif c.data == 'kingston':
+    elif c.data == 'Kingston':
         bot.send_message(c.message.chat.id,
                          text='Kingston FURY Beast Black [KF432C16BBK2/16] 16 ГБ  \nЦена 6 099' + '\nhttps://www.dns-shop.ru/product/e8acb46cdae8d763/operativnaa-pamat-kingston-fury-beast-black-kf432c16bbk216-16-gb/'),
         bot.send_message(c.message.chat.id,
@@ -149,6 +166,16 @@ def inline(c):
     elif c.data == 'Patriot':
         bot.send_message(c.message.chat.id,
                          text=' Patriot Viper Steel [PVS416G320C6K] 16 ГБ \nЦена 4 999' + '\nhttps://www.dns-shop.ru/product/5762c1c346fc1b80/operativnaa-pamat-patriot-viper-steel-pvs416g320c6k-16-gb/')
+    if c.data == 'asus':
+        bot.send_message(c.message.chat.id,
+                         text='ASUS PRIME H510M-K \nЦена 5 499' + '\nhttps://www.dns-shop.ru/product/2012e739a9902ff1/materinskaa-plata-asus-prime-h510m-k/ ')
+    elif c.data == 'msi':
+        bot.send_message(c.message.chat.id,
+                         text='MSI MAG B550 TOMAHAWK \nЦена 23 999' + '\nhttps://www.dns-shop.ru/product/b9a4575dafa61b80/materinskaa-plata-msi-mag-b550-tomahawk/')
+    elif c.data == 'gygabyte':
+        bot.send_message(c.message.chat.id,
+                         text='GIGABYTE B560M DS3H V2 \nЦена 6 299' + '\nhttps://www.dns-shop.ru/product/d69943561a91ed20/materinskaa-plata-gigabyte-b560m-ds3h-v2/')
+
     """Дорогие sdd"""
     if c.data == '120':
         bot.send_message(c.message.chat.id, text='нет в наличии')
@@ -189,14 +216,23 @@ def inline(c):
     elif c.data == 'chip16':
         bot.send_message(c.message.chat.id, text='нет в наличии')
 
-    """Вся Материнка"""
-    if c.data == 'asus':
-        bot.send_message(c.message.chat.id,
-                         text='ASUS PRIME H510M-K \nЦена 5 499' + '\nhttps://www.dns-shop.ru/product/2012e739a9902ff1/materinskaa-plata-asus-prime-h510m-k/ ')
-    elif c.data == 'msi':
+    """Дорогая материнка"""
+    if c.data == 'asus1':
+        bot.send_message(c.message.chat.id, text='нет в наличии')
+    elif c.data == 'msi1':
         bot.send_message(c.message.chat.id,
                          text='MSI MAG B550 TOMAHAWK \nЦена 23 999' + '\nhttps://www.dns-shop.ru/product/b9a4575dafa61b80/materinskaa-plata-msi-mag-b550-tomahawk/')
-    elif c.data == 'gygabyte':
+    elif c.data == 'gygabyte1':
+        bot.send_message(c.message.chat.id, text='нет в наличии')
+
+    """Дешевая материнка"""
+
+    if c.data == 'chipasus':
+        bot.send_message(c.message.chat.id,
+                         text='ASUS PRIME H510M-K \nЦена 5 499' + '\nhttps://www.dns-shop.ru/product/2012e739a9902ff1/materinskaa-plata-asus-prime-h510m-k/ ')
+    elif c.data == 'chipmsi':
+        bot.send_message(c.message.chat.id, text='нет в наличии')
+    elif c.data == 'chipgygabyte':
         bot.send_message(c.message.chat.id,
                          text='GIGABYTE B560M DS3H V2 \nЦена 6 299' + '\nhttps://www.dns-shop.ru/product/d69943561a91ed20/materinskaa-plata-gigabyte-b560m-ds3h-v2/')
 
